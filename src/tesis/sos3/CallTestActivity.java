@@ -12,6 +12,7 @@ import org.doubango.ngn.utils.NgnUriUtils;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -56,6 +57,8 @@ public class CallTestActivity extends Activity {
 		}else{
 			Toast.makeText(this, "video Call: NOT OK", Toast.LENGTH_SHORT).show();
 		}
+		Intent intent = new Intent(this, InVideoCall.class);
+	    startActivity(intent);
 	}
 
 	@Override

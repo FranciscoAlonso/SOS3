@@ -52,6 +52,10 @@
             android:name="tesis.sos3.CallTestActivity"
             android:label="@string/title_activity_call_test" >
         </activity>
+        <activity
+            android:name="tesis.sos3.InVideoCall"
+            android:label="@string/title_activity_in_video_call" >
+        </activity>
     </application>
 
 </manifest>
