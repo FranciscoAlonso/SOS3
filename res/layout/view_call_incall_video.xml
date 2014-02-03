@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_height="fill_parent" android:layout_width="fill_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="invideocall_relativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
     
     <FrameLayout android:id="@+id/view_call_incall_video_FrameLayout_remote_video" android:layout_width="fill_parent" android:orientation="horizontal" android:layout_gravity="bottom|right" android:gravity="bottom|right" android:layout_height="fill_parent" >
         <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/view_call_incall_video_imageView_secure" android:layout_margin="3px"></ImageView>
