@@ -96,19 +96,21 @@ public class RegistrationActivity extends Activity {
 			public void onClick(View v) {
 				if(mEngine.isStarted()){
 					if(!mSipService.isRegistered()){
-						// Set credentials (get them from SOS BD or sip server data) 
+						// Set credentials (get them from SOS BD or sip server data)
+						//192.168.1.120 home
+						//192.168.2.17 tony's VM at work
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_IMPI, 
 								"6002");
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_IMPU, 
-								"sip:6002@192.168.2.17");
+								"sip:6002@192.168.1.120");
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_PASSWORD,
 								"bob123");
 						mConfigurationService.putString(NgnConfigurationEntry.NETWORK_PCSCF_HOST,
-								"192.168.2.17");
+								"192.168.1.120");
 						mConfigurationService.putInt(NgnConfigurationEntry.NETWORK_PCSCF_PORT,
 								5060);
 						mConfigurationService.putString(NgnConfigurationEntry.NETWORK_REALM,
-								"192.168.2.17");
+								"192.168.1.120");
 						// VERY IMPORTANT: Commit changes
 						mConfigurationService.commit();
 						// register (log in)
