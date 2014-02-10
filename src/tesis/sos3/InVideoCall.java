@@ -29,9 +29,13 @@ public class InVideoCall extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+<<<<<<< HEAD
 		setContentView(tesis.sos3.R.layout.activity_in_video_call);
 		
 		mMainLayout = (RelativeLayout)findViewById(tesis.sos3.R.layout.view_call_incall_video);
+=======
+		setContentView(R.layout.activity_in_video_call);
+>>>>>>> eac3d6ec07172d41163e869b81913e77bcb65bb2
 		mid = getIntent().getStringExtra("id");
 		Log.e(TAG, String.format("SESSION ID: %d", NgnStringUtils.parseLong(mid, -1)));
 		mAVSession = NgnAVSession.getSession(NgnStringUtils.parseLong(mid, -1));
