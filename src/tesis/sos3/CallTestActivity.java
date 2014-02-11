@@ -55,20 +55,20 @@ public class CallTestActivity extends Activity {
 	}
 	
 	public void videoCallTest(View view){
-		remoteUri = "6001";
-		validUri = NgnUriUtils.makeValidSipUri(remoteUri);
-		final NgnAVSession avSession = NgnAVSession.createOutgoingSession(mSipService.getSipStack(), NgnMediaType.AudioVideo);
-		avSession.setRemotePartyUri(validUri); // HACK
+//		remoteUri = "6001";
+//		validUri = NgnUriUtils.makeValidSipUri(remoteUri);
+//		final NgnAVSession avSession = NgnAVSession.createOutgoingSession(mSipService.getSipStack(), NgnMediaType.AudioVideo);
+//		avSession.setRemotePartyUri(validUri); // HACK
 		Intent intent = new Intent(this, InVideoCall.class);
-		Log.e(TAG, "SESSION ID: " + Long.toString(avSession.getId()));
-		intent.putExtra("id", Long.toString(avSession.getId()));
+		//Log.e(TAG, "SESSION ID: " + Long.toString(avSession.getId()));
+		//intent.putExtra("id", Long.toString(avSession.getId()));
 	    startActivity(intent);
 
-		if(avSession.makeCall(validUri)){
+/*		if(avSession.makeCall(validUri)){
 			Toast.makeText(this, "video Call: OK", Toast.LENGTH_SHORT).show();			
 		}else{
 			Toast.makeText(this, "video Call: NOT OK", Toast.LENGTH_SHORT).show();
-		}
+		}*/
 
 	}
 
