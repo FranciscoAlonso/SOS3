@@ -5,6 +5,7 @@ import org.doubango.ngn.media.NgnMediaType;
 import org.doubango.ngn.services.INgnConfigurationService;
 import org.doubango.ngn.services.INgnSipService;
 import org.doubango.ngn.sip.NgnAVSession;
+import org.doubango.ngn.sip.NgnInviteSession.InviteState;
 import org.doubango.ngn.utils.NgnStringUtils;
 import org.doubango.ngn.utils.NgnUriUtils;
 
@@ -32,7 +33,6 @@ public class InVideoCall extends Activity {
 	private LayoutInflater mInflater;
 	public NgnAVSession avSession;
 	
-	private NgnAVSession mAVSession;
 	private INgnConfigurationService mConfigurationService;
 	private INgnSipService mSipService;
 	private NgnEngine mEngine;
@@ -62,23 +62,33 @@ public class InVideoCall extends Activity {
 			Toast.makeText(this, "Session == NULL", Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(this, "Session != NULL", Toast.LENGTH_SHORT).show();
-			Log.e(TAG, String.format("SESSION ID: %d", avSession.getId()));
+			//Log.e(TAG, String.format("SESSION ID: %d", avSession.getId()));
 			avSession.incRef();
-			avSession.setContext(this);
-			mMainLayout = (RelativeLayout)findViewById(tesis.sos3.R.layout.activity_in_video_call); //agarro el layout actual base
-			//Log.e(TAG, String.format("mMainLayout:");
-			mViewInCallVideo = mInflater.inflate(tesis.sos3.R.layout.view_call_incall_video, null); 
-			mViewLocalVideoPreview = (FrameLayout)mViewInCallVideo.findViewById(tesis.sos3.R.id.view_call_incall_video_FrameLayout_local_video);
-			mViewRemoteVideoPreview = (FrameLayout)mViewInCallVideo.findViewById(tesis.sos3.R.id.view_call_incall_video_FrameLayout_remote_video);
+			Log.e(TAG, String.format("Context: %s",getBaseContext().toString()));
+			avSession.setContext(getBaseContext());
 			
-			mMainLayout.removeAllViews();//nullpointer exception
-			mMainLayout.addView(mViewInCallVideo);
-			
-			// Video Consumer
-			loadVideoPreview();
-			
-			// Video Producer
-			startStopVideo(mAVSession.isSendingVideo());
+			mMainLayout = (RelativeLayout)findViewById(tesis.sos3.R.id.invideo_call_relativeLayout); //agarro el layout actual base
+			if(mMainLayout == null){
+				Log.e(TAG, String.format("mMainLayout == null"));	
+			}else{
+				mViewInCallVideo = mInflater.inflate(tesis.sos3.R.layout.view_call_incall_video, null); 
+				
+				mViewLocalVideoPreview = (FrameLayout)mViewInCallVideo.findViewById(tesis.sos3.R.id.view_call_incall_video_FrameLayout_local_video);
+				mViewRemoteVideoPreview = (FrameLayout)mViewInCallVideo.findViewById(tesis.sos3.R.id.view_call_incall_video_FrameLayout_remote_video);
+				
+				mMainLayout.removeAllViews();//nullpointer exception
+				mMainLayout.addView(mViewInCallVideo);
+				
+				avSession.setState(InviteState.INPROGRESS);
+				
+				// Video Consumer
+				loadVideoPreview();
+				
+				// Video Producer
+				startStopVideo(avSession.isSendingVideo());
+				
+				//startStopVideo(true);
+			}
 			
 		}
 		
@@ -95,19 +105,20 @@ public class InVideoCall extends Activity {
 	}
 
 	private void startStopVideo(boolean bStart) {
-		// TODO Auto-generated method stub
-		Log.e(TAG, "startStopVideo("+bStart+")");
+
+		//Log.e(TAG, "startStopVideo("+bStart+")");
 /*		if(!mIsVideoCall){
 			return;
 		}*/
 		
-		mAVSession.setSendingVideo(bStart);
+		avSession.setSendingVideo(bStart);
 		
 		if(mViewLocalVideoPreview != null){
 			mViewLocalVideoPreview.removeAllViews();
 			if(bStart){
 				//cancelBlankPacket();
-				final View localPreview = mAVSession.startVideoProducerPreview(); //ojo esto estaba retornando null
+				Log.e(TAG, String.format("startstopvideo producer Context: %s", getBaseContext().toString()));
+				final View localPreview = avSession.startVideoProducerPreview(); //ojo esto esta retornando null
 				if(localPreview != null){
 					final ViewParent viewParent = localPreview.getParent();
 					if(viewParent != null && viewParent instanceof ViewGroup){
@@ -129,7 +140,11 @@ public class InVideoCall extends Activity {
 
 	private void loadVideoPreview() {
 		mViewRemoteVideoPreview.removeAllViews();
-        final View remotePreview = mAVSession.startVideoConsumerPreview();
+		Log.e(TAG, String.format("loadview consumer Context: %s", getBaseContext().toString()));
+        final View remotePreview = avSession.startVideoConsumerPreview(); //ojo retorna null tambien
+        if(remotePreview == null){
+        	Log.e(TAG, "remotePreview == null");
+        }
 		if(remotePreview != null){
             final ViewParent viewParent = remotePreview.getParent();
             if(viewParent != null && viewParent instanceof ViewGroup){
