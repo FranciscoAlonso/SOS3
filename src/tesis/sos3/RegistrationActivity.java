@@ -102,15 +102,15 @@ public class RegistrationActivity extends Activity {
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_IMPI, 
 								"6002");
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_IMPU, 
-								"sip:6002@192.168.2.18");
+								"sip:6002@192.168.1.120");
 						mConfigurationService.putString(NgnConfigurationEntry.IDENTITY_PASSWORD,
 								"bob123");
 						mConfigurationService.putString(NgnConfigurationEntry.NETWORK_PCSCF_HOST,
-								"192.168.2.18");
+								"192.168.1.120");
 						mConfigurationService.putInt(NgnConfigurationEntry.NETWORK_PCSCF_PORT,
 								5060);
 						mConfigurationService.putString(NgnConfigurationEntry.NETWORK_REALM,
-								"192.168.2.18");
+								"192.168.1.120");
 						// VERY IMPORTANT: Commit changes
 						mConfigurationService.commit();
 						// register (log in)
