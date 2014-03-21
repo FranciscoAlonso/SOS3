@@ -8,9 +8,11 @@ import tesis.sos3.R;
 import tesis.sos3.RegistrationActivity;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,8 +22,10 @@ public class LogInActivity extends Activity {
 	private final NgnEngine mEngine;
 	private final INgnConfigurationService mConfigurationService;
 	private final INgnSipService mSipService;
+	private Context mContext;
 	
 	private Button logInButton; 
+	private Button listButton; 
 	
 	public LogInActivity(){
 		mEngine = NgnEngine.getInstance();
@@ -44,7 +48,22 @@ public class LogInActivity extends Activity {
 				logInButton.setEnabled(true);
 			}
 		}
+		
+		listButton = (Button)findViewById(R.id.list_button);
+		listButton.setOnClickListener(listOnclickListener);
+		mContext = this;
 	}
+	
+	private OnClickListener listOnclickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(mContext, RegistrationActivity.class);
+		    startActivity(intent);
+			
+		}
+	}; 
 	
 	public void onlogInButtonClick(View view){
 		/*

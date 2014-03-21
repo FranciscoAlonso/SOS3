@@ -19,4 +19,13 @@
         android:text="Log In"
         android:onClick="onlogInButtonClick" />
 
+    <Button
+        android:id="@+id/list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/audioCall"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="48dp"
+        android:text="List Test" />
+
 </RelativeLayout>
